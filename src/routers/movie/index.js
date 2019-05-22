@@ -19,8 +19,8 @@ export default {
             component: () => import('@/components/Seach')
         },
         {
-            path: '',
-            component: () => import('@/components/NowPlaying')
+            path: '/movie',
+            redirect: '/movie/nowPlaying'
         }
     ]
 }
