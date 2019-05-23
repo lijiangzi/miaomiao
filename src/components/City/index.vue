@@ -52,7 +52,7 @@ export default {
      
       this.cityList = JSON.parse(cityList);
       this.hotCity = JSON.parse(hotCity);
-      this.isLoading = true;
+      this.isLoading = false;
     } else {
       this.axios.get("/api/cityList").then(res => {
         // console.log(res)
