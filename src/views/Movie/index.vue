@@ -16,11 +16,11 @@
         </router-link>
       </div>
       <keep-alive>
-        <router-view></router-view>
+        <router-view name="default"></router-view>
       </keep-alive>
     </div>
     <TabBar></TabBar>
-
+    <router-view name="detail"></router-view>
   </div>
 </template>
 <script>

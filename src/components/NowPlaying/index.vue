@@ -5,11 +5,11 @@
       <ul>
         <li class="pullDown">{{pullDownMsg}}</li>
         <li v-for="item in hotMovie" :key="item.id">
-          <div class="pic_show" @tap="handleToDetail">
+          <div class="pic_show" @tap="handleToDetail(item.id)">
             <img :src="item.img | setWH('128.180')">
           </div>
           <div class="info_list">
-            <h2>{{item.nm}}
+            <h2 @tap="handleToDetail(item.id)">{{item.nm}}
               <img src="@/assets/maxs.png" v-if="item.version">
             </h2>
             <p>
@@ -41,8 +41,8 @@ export default {
     }
   },
   methods: {
-    handleToDetail(){
-      console.log(111);
+    handleToDetail(movieId){
+      this.$router.push('/movie/detail/1/'+movieId)
     },
     handleToScroll(pos){
       if(pos.y > 30){
@@ -67,7 +67,7 @@ export default {
   activated(){
     var cityId = this.$store.state.city.id;
     if(this.prevCityId == cityId){return;}
-    console.log('这是城市切换，所以我要重新加载影片数据');
+    console.log('这是城市切换或刷新，所以重新加载影片数据');
     this.isLoading = true;
     this.axios.get('/api/movieOnInfoList?cityId='+ cityId).then((res)=>{
       var msg = res.data.msg;
