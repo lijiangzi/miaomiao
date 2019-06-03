@@ -2,7 +2,8 @@
     <div id="main">
         <Header></Header>
         <div id="content">
-            <login></login>
+           
+            <router-view></router-view>
         </div>
         <TabBar></TabBar>
     </div>

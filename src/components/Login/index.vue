@@ -1,26 +1,74 @@
 <template>
     
-			<div class="login_body">
-				<div>
-					<input class="login_text" type="text" placeHolder="账户名/手机号/Email" >
-				</div>
-				<div>
-					<input class="login_text" type="password" placeHolder="请输入您的密码" >
-				</div>
-				<div class="login_btn">
-					<input type="submit" value="登录">
-				</div>
-				<div class="login_link">
-					<a href="#">立即注册</a>
-					<a href="#">找回密码</a>
-				</div>
-			
+	<div class="login_body">
+		<div>
+			<input class="login_text" v-model='username' type="text" placeHolder="账户名/手机号/Email" >
 		</div>
+		<div>
+			<input class="login_text" v-model="password" type="password" placeHolder="请输入您的密码" >
+		</div>
+		<div>
+		    <input class="login_text" placeHolder="请输入验证码" v-model="verifyImg">
+			<img src="/api2/users/verifyImg" alt="" @touchstart="handleToVerifyImg">
+		</div>
+		<div class="login_btn">
+			<input type="submit" value="登录" @touchstart=handleToLogin>
+		</div>
+		<div class="login_link">
+			<router-link to="/mine/register">立即注册</router-link>
+			<router-link to="/mine/findPassword">找回密码</router-link>
+		</div>
+		
+	</div>
 </template>
 
 <script>
+import { messageBox } from '@/components/JS'
+
 export default {
-    name: 'login'
+	name: 'login',
+	data(){
+		return {
+			username: '',
+			password: '',
+			verifyImg: ''
+		}
+	},
+	methods: {
+		handleToLogin(){
+			console.log(1);
+			this.axios.post('/api2/users/login',{
+				username: this.username,
+				password: this.password,
+				verifyImg: this.verifyImg
+			}).then((res)=>{
+				console.log(res);
+				var _this = this;
+				var status = res.data.status;
+				if(status == 0){
+					messageBox({
+						title: '登录',
+						content: '登录成功',
+						ok: '确定',
+						handleOk(){
+							_this.$router.push('/mine/center')
+						}
+					})
+				}else{
+					messageBox({
+						title: '登录',
+						content: res.data.msg,
+						ok: '确定'
+						
+					})
+				}
+			})
+		},
+		handleToVerifyImg(e){
+			console.log(111);
+			e.target.src = '/api2/users/verifyImg?'+ Math.random()
+		}
+	}
 }
 </script>
 

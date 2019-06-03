@@ -16,6 +16,12 @@ Vue.component('Loading',Loading)
 Vue.filter('setWH',(url,arg)=>{
   return url.replace(/w\.h/,arg)
 })
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+
 new Vue({
   router,
   store,
